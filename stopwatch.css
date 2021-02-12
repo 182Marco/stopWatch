@@ -1,0 +1,119 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  color: white;
+}
+
+body {
+  background-color: black;
+}
+
+/* containers */
+
+#contTimeandB {
+  margin: auto;
+  margin-top: 8vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#BtnCont {
+  justify-content: space-around;
+  align-items: center;
+  width: 45vw;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* bottoni */
+
+button {
+  font-size: 5vw;
+  padding: 1vh 1vw;
+  border-radius: 15px;
+  background-color: green;
+  color: white;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+
+button:nth-child(2) {
+  margin: 0 4vw;
+}
+
+button:hover {
+  border: 1px solid white;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* timer */
+
+#timer {
+  font-size: 9vw;
+  font-weight: 600;
+}
+
+#lapZone {
+  margin-top: 4vh;
+  width: 80vw;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 10vh;
+}
+
+.SingolLapCont {
+  display: flex;
+  /* prima si crea il nodo lap poi si verfica la linghezza
+della collection che ha classe node, quindi nel dom
+numero di lap sarà annotato dopo il lap stesso, quindi
+servere un flex row-reverse per vederlo alla sua sx */
+  flex-direction: row-reverse;
+}
+
+.SingolLapCont > span {
+  font-weight: 400;
+  font-size: 7.5vw;
+  margin-bottom: 8px;
+}
+
+.Nlap {
+  margin-left: 10vw;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 501px) and (max-width: 768px) {
+  #BtnCont {
+    margin-top: 12px;
+    width: 50vw;
+  }
+  button {
+    padding: 3px 8px;
+    font-size: 5.3vw;
+  }
+  button:nth-child(2) {
+    margin: 0 1vw;
+  }
+}
+
+@media (max-width: 500px) {
+  #BtnCont {
+    margin-top: 12px;
+    width: 250px;
+  }
+  button {
+    padding: 3px 8px;
+  }
+  button:nth-child(2) {
+    margin: 0 2vw;
+  }
+}
