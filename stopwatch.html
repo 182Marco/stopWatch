@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel="stylesheet" href="stopwatch.css">
-    <link rel="shortcut icon" href="favicon.png">
-    <meta charset="utf-8">
+    <link rel="stylesheet" href="stopwatch.css" />
+    <link rel="shortcut icon" href="favicon.png" />
+    <meta charset="utf-8" />
     <title>cronometro</title>
   </head>
   <body>
-
     <div id="contTimeandB">
       <p id="timer">00:00:00:00</p>
       <section id="BtnCont">
-        <button status="basic">start</button>
-        <button>reset</button>
-        <button>lap</button>
+        <button status="basic" id="startStop">start</button>
+        <button id="reset">reset</button>
+        <button id="lap">lap</button>
       </section>
       <div id="lapZone"></div>
     </div>
 
     <script type="text/javascript" src="stopwatch.js"></script>
-    
   </body>
 </html>
