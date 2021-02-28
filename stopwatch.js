@@ -2,13 +2,18 @@ const countDownElement = document.querySelector('#timer');
 const buttonStart = document.querySelector('#startStop');
 const buttonGiroStop = document.querySelector('#reset');
 const btnWrapperStop = document.querySelector('#btnWrapperStop');
+const wrapperGrey = document.querySelectorAll('.first')[0];
+const wrapperRedGreen = document.querySelectorAll('.second')[0];
 
 buttonStart.addEventListener(`click`, startStop);
 
 function startStop() {
   if (buttonStart.getAttribute('status') == 'basic') {
-    // diventa bianca scritta in bottone grigio
+    // diventa opaca scritta e bg in btn grigio
     buttonGiroStop.style.color = '#fff';
+    buttonGiroStop.style.backgroundColor = '#3d3d3d';
+    wrapperGrey.style.backgroundColor = '#3d3d3d';
+    wrapperRedGreen.style.backgroundColor = '#3d3d3d';
     //CHIMARE FUNZIONE OGNI 1000 MILLISECONDI
     allCentInCount = 0;
     int = setInterval(upDateCountUp, 10);
@@ -58,11 +63,15 @@ function startStop() {
 buttonGiroStop.addEventListener(`click`, reset);
 function reset() {
   if (buttonStart.getAttribute('status') == 'readytoreset') {
-    // diventa grigia scritta in bottone grigio
+    // diventa opaca scritta e bg in btn grigio
     buttonGiroStop.style.color = '#98989f';
+    buttonGiroStop.style.backgroundColor = '#141414';
+    wrapperGrey.style.backgroundColor = '#141414';
     clearInterval(int);
-    countDownElement.innerHTML = `00:00:00,00`;
+    countDownElement.innerHTML = `00:00,00`;
+    //cambiare stato del bottone start e reset
     buttonStart.setAttribute('status', 'basic');
+    //cambiare layout del bottone stop in start
     buttonStart.innerText = 'Avvia';
     buttonStart.style.backgroundColor = '#0a2a12';
     buttonStart.style.color = '#30d158';
@@ -80,7 +89,7 @@ function reset() {
 buttonGiroStop.addEventListener(`click`, lap);
 function lap() {
   if (
-    countDownElement.innerText != '00:00:00,00' &&
+    countDownElement.innerText != '00:00,00' &&
     buttonStart.getAttribute('status') != 'readytoreset'
   ) {
     //costruire un div per contenere N lap e giro e lap
