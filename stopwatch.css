@@ -54,20 +54,16 @@ body {
   font-size: 17vw;
 }
 
-#startStop {
+button {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #30d158;
-  background-color: #0a2a12;
 }
 
-#reset {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+#startStop {
+  color: #30d158;
+  background-color: #0a2a12;
 }
 
 /* bottoni */
@@ -91,7 +87,7 @@ button:focus {
 
 #lapZone {
   width: 100%;
-  min-height: 30vh;
+  height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
