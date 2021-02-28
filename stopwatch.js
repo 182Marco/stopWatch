@@ -9,7 +9,7 @@ function startStop() {
   if (buttonStart.getAttribute('status') == 'basic') {
     //CHIMARE FUNZIONE OGNI 1000 MILLISECONDI
     allCentInCount = 0;
-    int = setInterval(upDateCountUp, 1);
+    int = setInterval(upDateCountUp, 10);
 
     function upDateCountUp() {
       //NUMERO MINUTI E SECONDI E ORE NEL COUNTDOWN
@@ -112,7 +112,6 @@ function lap() {
     var centNelleOre = parseInt(parteDelleOre) * 60 * 60 * 100;
     //sommare tutti i cent dell'ultimo passaggio
     AllLastCent = centDelPassaggio + centNeiSec + centNeiMin + centNelleOre;
-    console.log(AllLastCent);
     // OTTENERE I CENT DI SECONDO DEL PEN-ULTIMO PASSAGGIO
     var lapNodeList = document.getElementsByClassName('lap');
     if (lapNodeList.length > 1) {
@@ -136,10 +135,27 @@ function lap() {
         centNeiSecFormer +
         centNeiMinFormer +
         centNelleOreFormer;
-      console.log(allCentFormer);
       // CENTESIMI DI SECONDO DEL GIRO
       centDelGiro = AllLastCent - allCentFormer;
-      console.log(centDelGiro);
+      //NUMERO MINUTI E SECONDI NEL DIFFERENZIALE
+      var secDelGiro = Math.floor(centDelGiro / 100);
+      var minDelGiro = Math.floor(centDelGiro / 100 / 60);
+      var hoursDelGiro = Math.floor(centDelGiro / 100 / 60 / 60);
+      //NUMERO DEI SECONDI MINUTI E ORE IN MODULO SESSAGESIMALE
+      let centInModulo = centDelGiro % 100;
+      let secInModulo = secDelGiro % 60;
+      let minInModulo = minDelGiro % 60;
+      let hoursInModulo = hoursDelGiro % 24;
+      /* SCRIVERE BENE I SECONDI/MINUTI/ORE 
+      DEL GIRO, CON 0 DAVANTI SE < DI 10 */
+      centInModulo = centInModulo < 10 ? `0` + centInModulo : centInModulo;
+      secInModulo = secInModulo < 10 ? `0` + secInModulo : secInModulo;
+      minInModulo = minInModulo < 10 ? `0` + minInModulo : minInModulo;
+      hoursInModulo = hoursInModulo < 10 ? `0` + hoursInModulo : hoursInModulo;
+      //SCRIVERE IL TEMPO DEL GIRO PER ESTESO
+      console.log(
+        `${hoursInModulo}:${minInModulo}:${secInModulo},${centInModulo}`
+      );
     }
   }
 }
