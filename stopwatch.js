@@ -51,7 +51,7 @@ buttonGiroStop.addEventListener(`click`, reset);
 function reset() {
   if (buttonStart.getAttribute('status') == 'readytoreset') {
     clearInterval(int);
-    countDownElement.innerHTML = `00:00:00:00`;
+    countDownElement.innerHTML = `00:00:00,00`;
     buttonStart.setAttribute('status', 'basic');
     buttonStart.innerText = 'Avvia';
     buttonStart.style.backgroundColor = '#0a2a12';
