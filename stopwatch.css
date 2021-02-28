@@ -41,17 +41,25 @@ header img:first-child {
   width: 4vw;
 }
 
+header .clookAndTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30%;
+  margin: auto;
+  height: 8vh;
+}
+
+#clock {
+  font-weight: 700;
+}
+
 header img:nth-child(2) {
   right: 1%;
   width: 8vw;
 }
 
 h1 {
-  position: absolute;
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-weight: 500;
   font-size: 1.75rem;
 }
 

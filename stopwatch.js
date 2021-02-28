@@ -1,3 +1,23 @@
+//funzionamento orologio in alto
+var clock = document.querySelector('#clock');
+
+getTimer();
+getTimer = setInterval(getTimer, 60000);
+
+function getTimer() {
+  // MINUTI
+  var d = new Date();
+  var min = d.getMinutes();
+  //scrivere bene min in varibile
+  var min = min < 10 ? `0` + min : min;
+  // ORE
+  var h = d.getHours();
+  //scrivere bene ore in varibile
+  var h = h < 10 ? `0` + h : h;
+  time = h + ':' + min;
+  clock.innerText = time;
+}
+
 const countDownElement = document.querySelector('#timer');
 const buttonStart = document.querySelector('#startStop');
 const buttonGiroStop = document.querySelector('#reset');
