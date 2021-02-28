@@ -186,6 +186,6 @@ function lap() {
     var textLap = document.createTextNode(`Giro ${nlap}`);
     lapEl.appendChild(textLap);
     singolLapCont.appendChild(lapEl);
-    timeLap.classList.add('Nlap');
+    lapEl.classList.add('nGiro');
   }
 }

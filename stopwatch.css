@@ -201,3 +201,10 @@ servere un flex row-reverse per vederlo alla sua sx */
   font-weight: 400;
   font-size: 1.3rem;
 }
+
+/* dare una larghezza al numero di giro per
+tenere il testo giustificato rispetto ai titoli
+in flex sovrastanti */
+.nGiro {
+  width: 73px;
+}
