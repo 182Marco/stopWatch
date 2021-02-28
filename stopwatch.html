@@ -8,11 +8,14 @@
   </head>
   <body>
     <div id="contTimeandB">
-      <p id="timer">00:00:00:00</p>
-      <section id="BtnCont">
-        <button status="basic" id="startStop">start</button>
-        <button id="reset">reset</button>
-        <button id="lap">lap</button>
+      <section class="crono-cont">
+        <p id="timer">00:00:00,00</p>
+        <div class="btnWrapper">
+          <button id="reset">Giro</button>
+        </div>
+        <div class="btnWrapper" id="btnWrapperStop">
+          <button status="basic" id="startStop">Avvia</button>
+        </div>
       </section>
       <div id="lapZone"></div>
     </div>
