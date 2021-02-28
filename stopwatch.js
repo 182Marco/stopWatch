@@ -7,6 +7,8 @@ buttonStart.addEventListener(`click`, startStop);
 
 function startStop() {
   if (buttonStart.getAttribute('status') == 'basic') {
+    // diventa bianca scritta in bottone grigio
+    buttonGiroStop.style.color = '#fff';
     //CHIMARE FUNZIONE OGNI 1000 MILLISECONDI
     allCentInCount = 0;
     int = setInterval(upDateCountUp, 10);
@@ -27,10 +29,16 @@ function startStop() {
       cent = cent < 10 ? `0` + cent : cent;
       seconds = seconds < 10 ? `0` + seconds : seconds;
       minutes = minutes < 10 ? `0` + minutes : minutes;
-      hours = hours < 10 ? `0` + hours : hours;
-      //SCRIVERE DENTRO NUOVO MINUTAGGIO
-      countDownElement.innerHTML = `${hours}:${minutes}:${seconds},${cent}`;
-      allCentInCount++;
+      if (hours > 0) {
+        hours = hours < 10 ? `0` + hours : hours;
+        //scrivere dentro minutaggio con ore
+        countDownElement.innerHTML = `${hours}:${minutes}:${seconds},${cent}`;
+        allCentInCount++;
+      } else {
+        //scrivere dentro minutaggio senza ore
+        countDownElement.innerHTML = `${minutes}:${seconds},${cent}`;
+        allCentInCount++;
+      }
       //CAMBIARE STATO AL BOTTONE START PER
       //RIUSARLO COME STOP NELL'ELSE IF
       buttonStart.innerText = 'stop';
@@ -50,6 +58,8 @@ function startStop() {
 buttonGiroStop.addEventListener(`click`, reset);
 function reset() {
   if (buttonStart.getAttribute('status') == 'readytoreset') {
+    // diventa grigia scritta in bottone grigio
+    buttonGiroStop.style.color = '#98989f';
     clearInterval(int);
     countDownElement.innerHTML = `00:00:00,00`;
     buttonStart.setAttribute('status', 'basic');
@@ -73,7 +83,7 @@ function lap() {
     countDownElement.innerText != '00:00:00,00' &&
     buttonStart.getAttribute('status') != 'readytoreset'
   ) {
-    //costruire un div per contenere N lap e lap
+    //costruire un div per contenere N lap e giro e lap
     var singolLapCont = document.createElement('div');
     var zonalap = document.getElementById('lapZone');
     zonalap.appendChild(singolLapCont);
@@ -85,6 +95,60 @@ function lap() {
     timeLap.appendChild(text);
     singolLapCont.appendChild(timeLap);
     timeLap.classList.add('lap');
+    /* OTTENERE IL GIRO COME DIFFERENZA DEI CENT DI
+    SECONDO DEGLI ULTIMI DUE PASSAGGI */
+    // OTTENERE I CENT DI SECONDO DELL'ULTIMO PASSAGGIO
+    // centesimi nei centesimi
+    var centDelPassaggio = parseInt(lap.split(',')[1]);
+    // centesimi nei secondi
+    var senzaVirgola = lap.split(',')[0];
+    var parteDeiSec = senzaVirgola.split(':')[1];
+    var centNeiSec = parseInt(parteDeiSec) * 100;
+    // centesimi nei minuti
+    var parteDeiMinuti = senzaVirgola.split(':')[0];
+    var centNeiMin = parseInt(parteDeiMinuti) * 60 * 100;
+    //sommare tutti i cent dell'ultimo passaggio
+    AllLastCent = centDelPassaggio + centNeiSec + centNeiMin;
+    // OTTENERE I CENT DI SECONDO DEL PEN-ULTIMO PASSAGGIO
+    var lapNodeList = document.getElementsByClassName('lap');
+    if (lapNodeList.length > 1) {
+      //passare dalla nodeList al penultimo giro
+      var formerLap = lapNodeList[lapNodeList.length - 2].innerText;
+      // centesimi nei centesimi
+      var centDelFormer = parseInt(formerLap.split(',')[1]);
+      // centesimi nei secondi
+      var senzaVirgolaFormer = formerLap.split(',')[0];
+      var parteDeiSecFormer = senzaVirgolaFormer.split(':')[1];
+      var centNeiSecFormer = parseInt(parteDeiSecFormer) * 100;
+      // centesimi nei minuti
+      var parteDeiMinutiFormer = senzaVirgolaFormer.split(':')[0];
+      var centNeiMinFormer = parseInt(parteDeiMinutiFormer) * 60 * 100;
+      //sommare tutti i cent dell'ultimo passaggio
+      allCentFormer = centDelFormer + centNeiSecFormer + centNeiMinFormer;
+      // CENTESIMI DI SECONDO DEL GIRO
+      centDelGiro = AllLastCent - allCentFormer;
+      //NUMERO MINUTI E SECONDI NEL DIFFERENZIALE
+      var secDelGiro = Math.floor(centDelGiro / 100);
+      var minDelGiro = Math.floor(centDelGiro / 100 / 60);
+      //NUMERO DEI SECONDI MINUTI E ORE IN MODULO SESSAGESIMALE
+      let centInModulo = centDelGiro % 100;
+      let secInModulo = secDelGiro % 60;
+      let minInModulo = minDelGiro % 60;
+      /* SCRIVERE BENE I SECONDI/MINUTI/ORE 
+      DEL GIRO, CON 0 DAVANTI SE < DI 10 */
+      centInModulo = centInModulo < 10 ? `0` + centInModulo : centInModulo;
+      secInModulo = secInModulo < 10 ? `0` + secInModulo : secInModulo;
+      minInModulo = minInModulo < 10 ? `0` + minInModulo : minInModulo;
+      // variabile completa del giro
+      var giro = `${minInModulo}:${secInModulo},${centInModulo}`;
+      console.log(giro);
+      //costruire l'elemento che contine il giro
+      var giroElem = document.createElement('span');
+      var txtGiro = document.createTextNode(giro);
+      giroElem.appendChild(txtGiro);
+      singolLapCont.appendChild(giroElem);
+      timeLap.classList.add('giroElem');
+    }
     //ottenere il numero di lap attraverso
     // la lunghezza della node collection
     // che ha classe  Lap
@@ -95,67 +159,5 @@ function lap() {
     lapEl.appendChild(textLap);
     singolLapCont.appendChild(lapEl);
     timeLap.classList.add('Nlap');
-    /* OTTENERE IL GIRO COME DIFFERENZA DEI CENT DI
-    SECONDO DEGLI ULTIMI DUE PASSAGGI */
-    // OTTENERE I CENT DI SECONDO DELL'ULTIMO PASSAGGIO
-    // centesimi nei centesimi
-    var centDelPassaggio = parseInt(lap.split(',')[1]);
-    // centesimi nei secondi
-    var senzaVirgola = lap.split(',')[0];
-    var parteDeiSec = senzaVirgola.split(':')[2];
-    var centNeiSec = parseInt(parteDeiSec) * 100;
-    // centesimi nei minuti
-    var parteDeiMinuti = senzaVirgola.split(':')[1];
-    var centNeiMin = parseInt(parteDeiMinuti) * 60 * 100;
-    // centesimi nelle ore minuti
-    var parteDelleOre = senzaVirgola.split(':')[0];
-    var centNelleOre = parseInt(parteDelleOre) * 60 * 60 * 100;
-    //sommare tutti i cent dell'ultimo passaggio
-    AllLastCent = centDelPassaggio + centNeiSec + centNeiMin + centNelleOre;
-    // OTTENERE I CENT DI SECONDO DEL PEN-ULTIMO PASSAGGIO
-    var lapNodeList = document.getElementsByClassName('lap');
-    if (lapNodeList.length > 1) {
-      //passare dalla nodeList al penultimo giro
-      var formerLap = lapNodeList[lapNodeList.length - 2].innerText;
-      // centesimi nei centesimi
-      var centDelFormer = parseInt(formerLap.split(',')[1]);
-      // centesimi nei secondi
-      var senzaVirgolaFormer = formerLap.split(',')[0];
-      var parteDeiSecFormer = senzaVirgolaFormer.split(':')[2];
-      var centNeiSecFormer = parseInt(parteDeiSecFormer) * 100;
-      // centesimi nei minuti
-      var parteDeiMinutiFormer = senzaVirgolaFormer.split(':')[1];
-      var centNeiMinFormer = parseInt(parteDeiMinutiFormer) * 60 * 100;
-      // centesimi nelle ore minuti
-      var parteDelleOreFormer = senzaVirgolaFormer.split(':')[0];
-      var centNelleOreFormer = parseInt(parteDelleOreFormer) * 60 * 60 * 100;
-      //sommare tutti i cent dell'ultimo passaggio
-      allCentFormer =
-        centDelFormer +
-        centNeiSecFormer +
-        centNeiMinFormer +
-        centNelleOreFormer;
-      // CENTESIMI DI SECONDO DEL GIRO
-      centDelGiro = AllLastCent - allCentFormer;
-      //NUMERO MINUTI E SECONDI NEL DIFFERENZIALE
-      var secDelGiro = Math.floor(centDelGiro / 100);
-      var minDelGiro = Math.floor(centDelGiro / 100 / 60);
-      var hoursDelGiro = Math.floor(centDelGiro / 100 / 60 / 60);
-      //NUMERO DEI SECONDI MINUTI E ORE IN MODULO SESSAGESIMALE
-      let centInModulo = centDelGiro % 100;
-      let secInModulo = secDelGiro % 60;
-      let minInModulo = minDelGiro % 60;
-      let hoursInModulo = hoursDelGiro % 24;
-      /* SCRIVERE BENE I SECONDI/MINUTI/ORE 
-      DEL GIRO, CON 0 DAVANTI SE < DI 10 */
-      centInModulo = centInModulo < 10 ? `0` + centInModulo : centInModulo;
-      secInModulo = secInModulo < 10 ? `0` + secInModulo : secInModulo;
-      minInModulo = minInModulo < 10 ? `0` + minInModulo : minInModulo;
-      hoursInModulo = hoursInModulo < 10 ? `0` + hoursInModulo : hoursInModulo;
-      //SCRIVERE IL TEMPO DEL GIRO PER ESTESO
-      console.log(
-        `${hoursInModulo}:${minInModulo}:${secInModulo},${centInModulo}`
-      );
-    }
   }
 }

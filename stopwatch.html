@@ -7,17 +7,30 @@
     <title>cronometro</title>
   </head>
   <body>
+    <header class="pos-rel">
+      <h1>Cronometro</h1>
+    </header>
     <div id="contTimeandB">
-      <section class="crono-cont">
-        <p id="timer">00:00:00,00</p>
-        <div class="btnWrapper">
-          <button id="reset">Giro</button>
-        </div>
-        <div class="btnWrapper" id="btnWrapperStop">
-          <button status="basic" id="startStop">Avvia</button>
-        </div>
+      <section class="crono-cont pos-rel">
+        <p id="timer">00:00,00</p>
       </section>
-      <div id="lapZone"></div>
+      <div class="btnAndlapsZone pos-rel">
+        <div class="btnWrapper first">
+          <button id="reset" class="absolute-center">Giro</button>
+        </div>
+        <div class="btnWrapper second" id="btnWrapperStop">
+          <button status="basic" id="startStop" class="absolute-center">
+            Avvia
+          </button>
+        </div>
+        <div id="lapZone">
+          <div class="sub-title-cont">
+            <span>GIRO NUM.</span>
+            <span>INTERMEDIO</span>
+            <span>TOTALE</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script type="text/javascript" src="stopwatch.js"></script>

@@ -10,12 +10,43 @@ body {
   background-color: black;
 }
 
+/* UTILITY */
+
+.pos-rel {
+  position: relative;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*  HEADER*/
+
+header {
+  height: 10vh;
+  text-align: center;
+  background-color: #201c1c;
+  border-bottom: 1px solid #333;
+}
+
+h1 {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 500;
+  font-size: 1.75rem;
+}
+
 /* containers */
 
 #contTimeandB {
   margin: auto;
-  width: 95vw;
-  height: 100vh;
+  width: 90vw;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,46 +54,42 @@ body {
 }
 
 .crono-cont {
-  height: 70vh;
+  height: 35vh;
   width: 100%;
-  position: relative;
 }
 
-/* posizione del cronometro e dei bottoni */
+.btnAndlapsZone {
+  width: 90vw;
+  height: 55vh;
+}
 
-.btnWrapper {
-  position: absolute;
-  bottom: 7%;
-  height: 84px;
-  width: 84px;
-  background-color: #1c1c1e;
-  border-radius: 50%;
-}
-.crono-cont .btnWrapper:nth-child(2) {
-  left: 1%;
-}
-.crono-cont .btnWrapper:last-child {
-  right: 1%;
-  background-color: #0a2a12;
-}
+/* numeri del cronometro vero e poprio */
 
 #timer {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 17vw;
+  font-size: 13vw;
 }
 
-button {
+/* posizione dei bottoni 
+ (i wrappper servono a creare 
+ il doppiobordo ai pulsanti) */
+
+.btnWrapper {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  height: 100px;
+  width: 100px;
+  background-color: #1c1c1e;
+  border-radius: 50%;
 }
-
-#startStop {
-  color: #30d158;
+.btnWrapper.first {
+  left: 0;
+}
+.btnWrapper.second {
+  right: 0;
   background-color: #0a2a12;
 }
 
@@ -70,8 +97,8 @@ button {
 
 button {
   font-size: 0.9rem;
-  height: 80px;
-  width: 80px;
+  height: 96px;
+  width: 96px;
   border-radius: 50%;
   background-color: #1c1c1e;
   color: #98989f;
@@ -83,11 +110,17 @@ button:focus {
   outline: none;
 }
 
-/* timer */
+#startStop {
+  color: #30d158;
+  background-color: #0a2a12;
+}
+
+/* zona dei lap */
 
 #lapZone {
-  width: 100%;
-  height: 30vh;
+  width: 50%;
+  height: 55vh;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,26 +128,42 @@ button:focus {
   overflow: scroll;
 }
 
-.SingolLapCont {
-  width: 100%;
+.sub-title-cont {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #98989f49;
+}
+.sub-title-cont > span {
+  font-size: 1.3rem;
+}
 
-  /* prima si crea il nodo lap poi si verfica la linghezza
+.SingolLapCont {
+  position: relative;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #98989f49;
+}
+
+/* prima si crea il nodo lap poi si verfica la linghezza
 della collection che ha classe node, quindi nel dom
 numero di lap sarà annotato dopo il lap stesso, quindi
 servere un flex row-reverse per vederlo alla sua sx */
-  flex-direction: row-reverse;
-}
 
 .SingolLapCont > span {
   font-weight: 400;
-  font-size: 7.5vw;
-  margin-bottom: 8px;
+  font-size: 1.3rem;
 }
 
 .Nlap {
-  margin-left: 10vw;
+}
+
+.giroElem {
 }
 
 /* MEDIA QUERIES */
