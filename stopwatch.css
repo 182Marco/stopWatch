@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: black;
+  background-color: #181818;
 }
 
 /* UTILITY */
@@ -30,6 +30,20 @@ header {
   text-align: center;
   background-color: #201c1c;
   border-bottom: 1px solid #333;
+}
+header img {
+  position: absolute;
+  top: 10%;
+}
+
+header img:first-child {
+  left: 1%;
+  width: 4vw;
+}
+
+header img:nth-child(2) {
+  right: 1%;
+  width: 8vw;
 }
 
 h1 {
@@ -87,6 +101,7 @@ h1 {
 }
 .btnWrapper.first {
   left: 0;
+  background-color: #222;
 }
 .btnWrapper.second {
   right: 0;
@@ -100,10 +115,10 @@ button {
   height: 96px;
   width: 96px;
   border-radius: 50%;
-  background-color: #141414;
+  background-color: #222;
   color: #98989f;
   display: inline-block;
-  border: 2px solid #000;
+  border: 2px solid #181818;
 }
 
 button:focus {

@@ -65,8 +65,8 @@ function reset() {
   if (buttonStart.getAttribute('status') == 'readytoreset') {
     // diventa opaca scritta e bg in btn grigio
     buttonGiroStop.style.color = '#98989f';
-    buttonGiroStop.style.backgroundColor = '#141414';
-    wrapperGrey.style.backgroundColor = '#141414';
+    buttonGiroStop.style.backgroundColor = '#222';
+    wrapperGrey.style.backgroundColor = '#222';
     clearInterval(int);
     countDownElement.innerHTML = `00:00,00`;
     //cambiare stato del bottone start e reset
@@ -150,7 +150,6 @@ function lap() {
       minInModulo = minInModulo < 10 ? `0` + minInModulo : minInModulo;
       // variabile completa del giro
       var giro = `${minInModulo}:${secInModulo},${centInModulo}`;
-      console.log(giro);
       //costruire l'elemento che contine il giro
       var giroElem = document.createElement('span');
       var txtGiro = document.createTextNode(giro);
