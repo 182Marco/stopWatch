@@ -9,7 +9,7 @@ function startStop() {
   if (buttonStart.getAttribute('status') == 'basic') {
     //CHIMARE FUNZIONE OGNI 1000 MILLISECONDI
     allCentInCount = 0;
-    int = setInterval(upDateCountUp, 10);
+    int = setInterval(upDateCountUp, 1);
 
     function upDateCountUp() {
       //NUMERO MINUTI E SECONDI E ORE NEL COUNTDOWN
@@ -95,5 +95,51 @@ function lap() {
     lapEl.appendChild(textLap);
     singolLapCont.appendChild(lapEl);
     timeLap.classList.add('Nlap');
+    /* OTTENERE IL GIRO COME DIFFERENZA DEI CENT DI
+    SECONDO DEGLI ULTIMI DUE PASSAGGI */
+    // OTTENERE I CENT DI SECONDO DELL'ULTIMO PASSAGGIO
+    // centesimi nei centesimi
+    var centDelPassaggio = parseInt(lap.split(',')[1]);
+    // centesimi nei secondi
+    var senzaVirgola = lap.split(',')[0];
+    var parteDeiSec = senzaVirgola.split(':')[2];
+    var centNeiSec = parseInt(parteDeiSec) * 100;
+    // centesimi nei minuti
+    var parteDeiMinuti = senzaVirgola.split(':')[1];
+    var centNeiMin = parseInt(parteDeiMinuti) * 60 * 100;
+    // centesimi nelle ore minuti
+    var parteDelleOre = senzaVirgola.split(':')[0];
+    var centNelleOre = parseInt(parteDelleOre) * 60 * 60 * 100;
+    //sommare tutti i cent dell'ultimo passaggio
+    AllLastCent = centDelPassaggio + centNeiSec + centNeiMin + centNelleOre;
+    console.log(AllLastCent);
+    // OTTENERE I CENT DI SECONDO DEL PEN-ULTIMO PASSAGGIO
+    var lapNodeList = document.getElementsByClassName('lap');
+    if (lapNodeList.length > 1) {
+      //passare dalla nodeList al penultimo giro
+      var formerLap = lapNodeList[lapNodeList.length - 2].innerText;
+      // centesimi nei centesimi
+      var centDelFormer = parseInt(formerLap.split(',')[1]);
+      // centesimi nei secondi
+      var senzaVirgolaFormer = formerLap.split(',')[0];
+      var parteDeiSecFormer = senzaVirgolaFormer.split(':')[2];
+      var centNeiSecFormer = parseInt(parteDeiSecFormer) * 100;
+      // centesimi nei minuti
+      var parteDeiMinutiFormer = senzaVirgolaFormer.split(':')[1];
+      var centNeiMinFormer = parseInt(parteDeiMinutiFormer) * 60 * 100;
+      // centesimi nelle ore minuti
+      var parteDelleOreFormer = senzaVirgolaFormer.split(':')[0];
+      var centNelleOreFormer = parseInt(parteDelleOreFormer) * 60 * 60 * 100;
+      //sommare tutti i cent dell'ultimo passaggio
+      allCentFormer =
+        centDelFormer +
+        centNeiSecFormer +
+        centNeiMinFormer +
+        centNelleOreFormer;
+      console.log(allCentFormer);
+      // CENTESIMI DI SECONDO DEL GIRO
+      centDelGiro = AllLastCent - allCentFormer;
+      console.log(centDelGiro);
+    }
   }
 }
