@@ -177,6 +177,15 @@ function lap() {
       giroElem.appendChild(txtGiro);
       singolLapCont.appendChild(giroElem);
       timeLap.classList.add('giroElem');
+    } else {
+      /* creazione del primo giro in cui 
+     non c'è un differenziale quindi 
+     uguale al primo passaggio*/
+      var giroElem = document.createElement('span');
+      var txtGiro = document.createTextNode(lap);
+      giroElem.appendChild(txtGiro);
+      singolLapCont.appendChild(giroElem);
+      timeLap.classList.add('giroElem');
     }
     //ottenere il numero di lap attraverso
     // la lunghezza della node collection
