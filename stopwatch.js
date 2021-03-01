@@ -141,6 +141,11 @@ function lap() {
     AllLastCent = centDelPassaggio + centNeiSec + centNeiMin;
     // OTTENERE I CENT DI SECONDO DEL PEN-ULTIMO PASSAGGIO
     var lapNodeList = document.getElementsByClassName('lap');
+    /* CREARE ELEMENTO CHE CONTERRA' IL GIRO
+    (il testo sarà deteminato nell'if)*/
+    var giroElem = document.createElement('span');
+    singolLapCont.appendChild(giroElem);
+    timeLap.classList.add('giroElem');
     if (lapNodeList.length > 1) {
       //passare dalla nodeList al penultimo giro
       var formerLap = lapNodeList[lapNodeList.length - 2].innerText;
@@ -172,20 +177,14 @@ function lap() {
       // variabile completa del giro
       var giro = `${minInModulo}:${secInModulo},${centInModulo}`;
       //costruire l'elemento che contine il giro
-      var giroElem = document.createElement('span');
       var txtGiro = document.createTextNode(giro);
       giroElem.appendChild(txtGiro);
-      singolLapCont.appendChild(giroElem);
-      timeLap.classList.add('giroElem');
     } else {
       /* creazione del primo giro in cui 
      non c'è un differenziale quindi 
      uguale al primo passaggio*/
-      var giroElem = document.createElement('span');
       var txtGiro = document.createTextNode(lap);
       giroElem.appendChild(txtGiro);
-      singolLapCont.appendChild(giroElem);
-      timeLap.classList.add('giroElem');
     }
     //ottenere il numero di lap attraverso
     // la lunghezza della node collection
