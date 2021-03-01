@@ -18,6 +18,7 @@ function getTimer() {
   clock.innerText = time;
 }
 
+// btn e esterno btn in variabile
 const countDownElement = document.querySelector('#timer');
 const buttonStart = document.querySelector('#startStop');
 const buttonGiroStop = document.querySelector('#reset');
@@ -187,5 +188,11 @@ function lap() {
     lapEl.appendChild(textLap);
     singolLapCont.appendChild(lapEl);
     lapEl.classList.add('nGiro');
+    /* cancellare line layout man mano che si creano
+    elementi veri a sostituirle */
+    var line = document.querySelectorAll('.line');
+    if (line.length > 0) {
+      line[line.length - 1].remove();
+    }
   }
 }

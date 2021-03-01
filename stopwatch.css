@@ -157,9 +157,9 @@ button:focus {
 #caroOne {
 }
 
-/* zona dei lap */
+/* tebella dei lap */
 
-#lapZone {
+.lap-cont {
   width: 55%;
   height: 55vh;
   margin: auto;
@@ -169,6 +169,7 @@ button:focus {
   justify-content: flex-start;
   overflow: scroll;
 }
+/* titoli tabella */
 
 .sub-title-cont {
   display: flex;
@@ -181,21 +182,29 @@ button:focus {
   font-size: 1.3rem;
 }
 
+.line,
 .SingolLapCont {
-  position: relative;
   min-height: 50px;
   width: 100%;
+  border-bottom: 1px solid #98989f49;
+}
+
+/* zona di inserimento giri da js */
+
+#lapZone {
+  width: 100%;
+}
+
+/* prima si crea il nodo lap poi si verfica la lunghezza
+della collection che ha classe node, quindi nel dom
+numero di lap sarà annotato dopo il lap stesso, quindi
+servere un flex row-reverse per vederlo alla sua sx */
+.SingolLapCont {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #98989f49;
 }
-
-/* prima si crea il nodo lap poi si verfica la linghezza
-della collection che ha classe node, quindi nel dom
-numero di lap sarà annotato dopo il lap stesso, quindi
-servere un flex row-reverse per vederlo alla sua sx */
 
 .SingolLapCont > span {
   font-weight: 400;
