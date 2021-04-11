@@ -9,12 +9,12 @@ function getTimer() {
   var d = new Date();
   var min = d.getMinutes();
   //scrivere bene min in varibile
-  var min = min < 10 ? `0` + min : min;
+  var min = min < 10 ? `0${min}` : min;
   // ORE
   var h = d.getHours();
   //scrivere bene ore in varibile
-  var h = h < 10 ? `0` + h : h;
-  time = h + ':' + min;
+  var h = h < 10 ? `0${h}` : h;
+  time = `${h}:${min}`;
   clock.innerText = time;
 }
 
@@ -25,6 +25,8 @@ const buttonGiroStop = document.querySelector('#reset');
 const btnWrapperStop = document.querySelector('#btnWrapperStop');
 const wrapperGrey = document.querySelectorAll('.first')[0];
 const wrapperRedGreen = document.querySelectorAll('.second')[0];
+const zonalap = document.getElementById('lapZone');
+const lapCont = document.querySelector('.lap-cont');
 
 buttonStart.addEventListener(`click`, startStop);
 
@@ -36,7 +38,7 @@ function startStop() {
     wrapperGrey.style.backgroundColor = '#3d3d3d';
     wrapperRedGreen.style.backgroundColor = '#3d3d3d';
     //CHIMARE FUNZIONE OGNI 1000 MILLISECONDI
-    allCentInCount = 0;
+    let allCentInCount = 0;
     int = setInterval(upDateCountUp, 10);
 
     function upDateCountUp() {
@@ -52,17 +54,17 @@ function startStop() {
       let hours = hoursIncountUp % 24;
 
       //SCRIVERE BENE I SECONDI/MINUTI/ORE CON 0 DAVANTI SE < DI 10
-      cent = cent < 10 ? `0` + cent : cent;
-      seconds = seconds < 10 ? `0` + seconds : seconds;
-      minutes = minutes < 10 ? `0` + minutes : minutes;
+      cent = cent < 10 ? `0${cent}` : cent;
+      seconds = seconds < 10 ? `0${seconds}` : seconds;
+      minutes = minutes < 10 ? `0${minutes}` : minutes;
       if (hours > 0) {
-        hours = hours < 10 ? `0` + hours : hours;
+        hours = hours < 10 ? `0${hours}` : hours;
         //scrivere dentro minutaggio con ore
-        countDownElement.innerHTML = `${hours}:${minutes}:${seconds},${cent}`;
+        countDownElement.innerText = `${hours}:${minutes}:${seconds},${cent}`;
         allCentInCount++;
       } else {
         //scrivere dentro minutaggio senza ore
-        countDownElement.innerHTML = `${minutes}:${seconds},${cent}`;
+        countDownElement.innerText = `${minutes}:${seconds},${cent}`;
         allCentInCount++;
       }
       //CAMBIARE STATO AL BOTTONE START PER
@@ -100,9 +102,14 @@ function reset() {
     //cambiare nome al tasto "Azzera"
     buttonGiroStop.innerText = 'Giro';
     var allLapCont = document.querySelectorAll('.SingolLapCont');
-    var i;
-    for (i = 0; i < allLapCont.length; i++) {
+    for (let i = 0; i < allLapCont.length; i++) {
       allLapCont[i].remove();
+    }
+    // reinserire 6 line vuote di layout di default
+    for (let i = 0; i < 6; i++) {
+      let newLine = document.createElement('div');
+      newLine.classList.add(`line`);
+      lapCont.appendChild(newLine);
     }
   }
 }
@@ -115,7 +122,6 @@ function lap() {
   ) {
     //costruire un div per contenere N lap e giro e lap
     var singolLapCont = document.createElement('div');
-    var zonalap = document.getElementById('lapZone');
     zonalap.appendChild(singolLapCont);
     singolLapCont.classList.add('SingolLapCont');
     //costruire l'elemento che contine il lap
@@ -138,7 +144,7 @@ function lap() {
     var parteDeiMinuti = senzaVirgola.split(':')[0];
     var centNeiMin = parseInt(parteDeiMinuti) * 60 * 100;
     //sommare tutti i cent dell'ultimo passaggio
-    AllLastCent = centDelPassaggio + centNeiSec + centNeiMin;
+    var AllLastCent = centDelPassaggio + centNeiSec + centNeiMin;
     // OTTENERE I CENT DI SECONDO DEL PEN-ULTIMO PASSAGGIO
     var lapNodeList = document.getElementsByClassName('lap');
     /* CREARE ELEMENTO CHE CONTERRA' IL GIRO
@@ -159,9 +165,9 @@ function lap() {
       var parteDeiMinutiFormer = senzaVirgolaFormer.split(':')[0];
       var centNeiMinFormer = parseInt(parteDeiMinutiFormer) * 60 * 100;
       //sommare tutti i cent dell'ultimo passaggio
-      allCentFormer = centDelFormer + centNeiSecFormer + centNeiMinFormer;
+      var allCentFormer = centDelFormer + centNeiSecFormer + centNeiMinFormer;
       // CENTESIMI DI SECONDO DEL GIRO
-      centDelGiro = AllLastCent - allCentFormer;
+      var centDelGiro = AllLastCent - allCentFormer;
       //NUMERO MINUTI E SECONDI NEL DIFFERENZIALE
       var secDelGiro = Math.floor(centDelGiro / 100);
       var minDelGiro = Math.floor(centDelGiro / 100 / 60);
@@ -171,9 +177,9 @@ function lap() {
       let minInModulo = minDelGiro % 60;
       /* SCRIVERE BENE I SECONDI/MINUTI/ORE 
       DEL GIRO, CON 0 DAVANTI SE < DI 10 */
-      centInModulo = centInModulo < 10 ? `0` + centInModulo : centInModulo;
-      secInModulo = secInModulo < 10 ? `0` + secInModulo : secInModulo;
-      minInModulo = minInModulo < 10 ? `0` + minInModulo : minInModulo;
+      centInModulo = centInModulo < 10 ? `0${centInModulo}` : centInModulo;
+      secInModulo = secInModulo < 10 ? `0${secInModulo}` : secInModulo;
+      minInModulo = minInModulo < 10 ? `0${minInModulo}` : minInModulo;
       // variabile completa del giro
       var giro = `${minInModulo}:${secInModulo},${centInModulo}`;
       //costruire l'elemento che contine il giro
@@ -189,7 +195,7 @@ function lap() {
     //ottenere il numero di lap attraverso
     // la lunghezza della node collection
     // che ha classe  Lap
-    nlap = document.querySelectorAll('.lap').length;
+    var nlap = document.querySelectorAll('.lap').length;
     //creare il relativo elemento
     var lapEl = document.createElement('span');
     var textLap = document.createTextNode(`Giro ${nlap}`);
