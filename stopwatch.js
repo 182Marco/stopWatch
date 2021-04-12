@@ -29,7 +29,7 @@ const zonalap = document.getElementById('lapZone');
 const lapCont = document.querySelector('.lap-cont');
 
 buttonStart.addEventListener(`click`, startStop);
-
+var int;
 function startStop() {
   if (buttonStart.getAttribute('status') == 'basic') {
     // diventa opaca scritta e bg in btn grigio
