@@ -105,8 +105,8 @@ function reset() {
     for (let i = 0; i < allLapCont.length; i++) {
       allLapCont[i].remove();
     }
-    // reinserire 6 line vuote di layout di default
-    for (let i = 0; i < 6; i++) {
+    // reinserire 5 line vuote di layout di default
+    for (let i = 0; i < 5; i++) {
       let newLine = document.createElement('div');
       newLine.classList.add(`line`);
       lapCont.appendChild(newLine);
